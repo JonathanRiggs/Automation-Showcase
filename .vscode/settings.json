@@ -1,0 +1,4 @@
+{
+    "editor.suggest.snippetsPreventQuickSuggestions": true,
+    "chat.planAgent.defaultModel": "Auto (copilot)"
+}
