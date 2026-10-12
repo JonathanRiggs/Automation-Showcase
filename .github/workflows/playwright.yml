@@ -33,9 +33,6 @@ jobs:
   e2e:
     timeout-minutes: 30
     runs-on: ubuntu-latest
-    env:
-      CUSTOMER_EMAIL: ${{ secrets.CUSTOMER_EMAIL }}
-      CUSTOMER_PASSWORD: ${{ secrets.CUSTOMER_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
