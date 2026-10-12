@@ -1,28 +1,13 @@
-import { test as setup, expect, request } from '@playwright/test'
+import { test as setup } from '@playwright/test'
 import fs from 'node:fs'
 import path from 'node:path'
 import { ADMIN_STATE, API_URL, BASE_URL, CUSTOMER_STATE } from '../../playwright.config'
+import { Api } from '../../src/api'
+import { buildUser } from '../../src/data'
 
 // App keeps JWT in localstorage under "auth-token"
 
-async function storageState(
-    email: string,
-    password: string,
-    statePath: string,
-): Promise<void> {
-    if (!email || !password) {
-        throw new Error('CUSTOMER_EMAIL / CUSTOMER_PASSWORD ARE NOT SET')
-    }
-    const api = await request.newContext({ baseURL: API_URL });
-    const res = await api.post('/users/login', {
-        data: { email, password }
-    })
-    expect(res.ok(), `login failed for ${email}: ${res.status()}`).toBeTruthy();
-
-    const { access_token: token } = await res.json();
-    expect(token, `no access_token returned for ${email}`).toBeTruthy();
-    await api.dispose();
-
+function writeState(token: string, statePath: string): void {
     fs.mkdirSync(path.dirname(statePath), { recursive: true });
     fs.writeFileSync(
         statePath,
@@ -31,7 +16,7 @@ async function storageState(
                 cookies: [],
                 origins: [
                     {
-                        origin: BASE_URL,
+                        origini: BASE_URL,
                         localStorage: [{ name: 'auth-token', value: token }]
                     },
                 ],
@@ -41,15 +26,20 @@ async function storageState(
     );
 }
 
-setup('authenticate as custome', async () => {
-    await storageState(
-        process.env.CUSTOMER_EMAIL!,
-        process.env.CUSTOMER_PASSWORD!,
-        CUSTOMER_STATE
-    )
+setup('authenticate as customer', async () => {
+    const api = await Api.create();
+    const { token } = await api.auth.registerAndLogin(buildUser());
+    await api.dispose();
+
+    writeState(token, CUSTOMER_STATE);
 })
 
 setup('authenticate as admin', async () => {
     setup.skip(!process.env.ADMIN_EMAIL, 'Admin tests run against a local container only')
-    await storageState(process.env.ADMIN_EMAIL!, process.env.ADMIN_PASSWORD!, ADMIN_STATE)
+
+    const api = await Api.create();
+    const token = await api.auth.login(process.env.ADMIN_EMAIL!, process.env.ADMIN_PASSWORD!);
+    await api.dispose();
+
+    writeState(token, ADMIN_STATE);
 })
