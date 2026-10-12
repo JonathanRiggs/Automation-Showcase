@@ -10,6 +10,9 @@ async function storageState(
     password: string,
     statePath: string,
 ): Promise<void> {
+    if (!email || !password) {
+        throw new Error('CUSTOMER_EMAIL / CUSTOMER_PASSWORD ARE NOT SET')
+    }
     const api = await request.newContext({ baseURL: API_URL });
     const res = await api.post('/users/login', {
         data: { email, password }
