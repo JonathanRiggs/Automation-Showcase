@@ -11,9 +11,10 @@ async function storageState(
     statePath: string,
 ): Promise<void> {
     const api = await request.newContext({ baseURL: API_URL });
-    const res = await api.post('/users/login', { data: { email, password }
+    const res = await api.post('/users/login', {
+        data: { email, password }
     })
-    expect(res.ok(), `login failed for ${email}: ${res.status()}`).toBeTruthy( );
+    expect(res.ok(), `login failed for ${email}: ${res.status()}`).toBeTruthy();
 
     const { access_token: token } = await res.json();
     expect(token, `no access_token returned for ${email}`).toBeTruthy();
