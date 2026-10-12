@@ -14,10 +14,10 @@ async function storageState(
     const res = await api.post('/users/login', {
         data: { email, password }
     })
-    expect(res.ok(), `login failed for ${email}: ${res.status()}`).toBe(false);
+    expect(res.ok(), `login failed for ${email}: ${res.status()}`).toBeTruthy();
 
     const { access_token: token } = await res.json();
-    expect(token, `no access_token returned for ${email}`).toBe(false);
+    expect(token, `no access_token returned for ${email}`).toBeTruthy();
     await api.dispose();
 
     fs.mkdirSync(path.dirname(statePath), { recursive: true });
