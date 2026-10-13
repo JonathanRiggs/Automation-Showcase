@@ -1,7 +1,6 @@
-import { Faker, faker } from '@faker-js/faker'
+import { faker } from '@faker-js/faker'
 import { NewUser } from '../api'
 import { pickAddress } from './address.factory'
-import { pick } from 'zod/v4/core/util.cjs'
 
 
 export function strongPassword(): string {

@@ -16,7 +16,16 @@ export class HttpClient {
     private constructor(private readonly ctx: APIRequestContext) { }
 
     static async create(baseURL: string = API_URL): Promise<HttpClient> {
-        return new HttpClient(await request.newContext({ baseURL }))
+        try {
+            const ctx = await request.newContext({ baseURL });
+            return new HttpClient(ctx)
+        } catch (err) {
+            // Better Error
+            throw new Error(
+                `Failed to create Playwright AAPI request context. ${String(err,)}\n` +
+                `This often indicates a malformed storageState JSON referenced by Playwright config `
+            );
+        }
     }
 
     withToken(token: string): this {

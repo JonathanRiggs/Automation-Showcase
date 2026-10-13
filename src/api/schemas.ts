@@ -11,7 +11,7 @@ import { z } from 'zod';
 export const brandSchema = z.object({
     id: z.string(),
     name: z.string().min(1),
-    slug: z.string().min(1),
+    slug: z.string().min(1).optional(),
 });
 
 export const categorySchema = z.object({
@@ -30,7 +30,7 @@ export const productSchema = z.object({
     is_rental: z.boolean(),
     in_stock: z.boolean(),
     is_eco_friendly: z.boolean().optional(),
-    co2_rating: z.number().nullable().optional(),
+    co2_rating: z.string().nullable().optional(),
     brand: brandSchema.optional(),
     category: categorySchema.optional(),
 });
