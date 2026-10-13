@@ -3,24 +3,21 @@ import { NewAddress } from '../api'
 
 const KNOWN_GOOD: readonly NewAddress[] = [
     {
-        street: 'Broadway',
-        house_number: '111',
+        street: 'Broadway 111',
         city: 'Nashville',
         state: 'Tennessee',
         country: 'US',
         postal_code: '37216'
     },
     {
-        street: 'Market',
-        house_number: '222',
+        street: 'Market 222',
         city: 'Brentwood',
         state: 'California',
         country: 'US',
         postal_code: '94105'
     },
     {
-        street: 'Church',
-        house_number: '333',
+        street: 'Church 333',
         city: 'Nashville',
         state: 'Tennessee',
         country: 'US',
@@ -44,7 +41,7 @@ export function mismatchedCountryAddress(): NewAddress {
 
 export function toBillingFields(address: NewAddress) {
     return {
-        billing_street: address.house_number ? `${address.street} ${address.house_number}` : address.street,
+        billing_street: address.street,
         billing_city: address.city,
         billing_state: address.state,
         billing_country: address.country,
