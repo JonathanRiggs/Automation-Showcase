@@ -16,7 +16,7 @@ function writeState(token: string, statePath: string): void {
                 cookies: [],
                 origins: [
                     {
-                        origini: BASE_URL,
+                        origin: BASE_URL,
                         localStorage: [{ name: 'auth-token', value: token }]
                     },
                 ],

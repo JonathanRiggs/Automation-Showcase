@@ -30,7 +30,7 @@ export const productSchema = z.object({
     is_rental: z.boolean(),
     in_stock: z.boolean(),
     is_eco_friendly: z.boolean().optional(),
-    co2_rating: z.enum(['A', 'B', 'C', 'D', 'E']).nullable().optional(),
+    co2_rating: z.string().nullable().optional(),
     brand: brandSchema.optional(),
     category: categorySchema.optional(),
 });
