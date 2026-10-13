@@ -21,10 +21,10 @@ const KNOWN_GOOD: readonly NewAddress[] = [
     {
         street: 'Church',
         house_number: '333',
-        city: 'Amsterdam',
-        state: 'Noord-Holland',
-        country: 'NL',
-        postal_code: '1012JS'
+        city: 'Nashville',
+        state: 'Tennessee',
+        country: 'US',
+        postal_code: '37206'
     },
 ] as const;
 
