@@ -2,11 +2,11 @@ import { Locator, Page } from '@playwright/test'
 import { BasePage } from './BasePage'
 
 export type PaymentMethod =
-  | 'bank-transfer'
-  | 'cash-on-delivery'
-  | 'credit-card'
-  | 'buy-now-pay-later'
-  | 'gift-card';
+    | 'bank-transfer'
+    | 'cash-on-delivery'
+    | 'credit-card'
+    | 'buy-now-pay-later'
+    | 'gift-card';
 
 
 export interface Address {
@@ -25,22 +25,22 @@ export interface GuestDetails {
 }
 
 export type PaymentDetails =
-  | { method: 'bank-transfer'; bankName: string; accountName: string; accountNumber: string }
-  | { method: 'cash-on-delivery' }
-  | {
-      method: 'credit-card';
-      cardNumber: string;
-      expirationDate: string;
-      cvv: string;
-      cardHolderName: string;
+    | { method: 'bank-transfer'; bankName: string; accountName: string; accountNumber: string }
+    | { method: 'cash-on-delivery' }
+    | {
+        method: 'credit-card';
+        cardNumber: string;
+        expirationDate: string;
+        cvv: string;
+        cardHolderName: string;
     }
-  | { method: 'buy-now-pay-later'; installments: '3' | '6' | '9' | '12' }
-  | { method: 'gift-card'; giftCardNumber: string; validationCode: string };
+    | { method: 'buy-now-pay-later'; installments: '3' | '6' | '9' | '12' }
+    | { method: 'gift-card'; giftCardNumber: string; validationCode: string };
 
-  /**
- * Checkout steps 2-4. Step 1 (cart) lives in CartPage because it is reachable
- * on its own; steps 2-4 are only ever traversed in order.
- */
+/**
+* Checkout steps 2-4. Step 1 (cart) lives in CartPage because it is reachable
+* on its own; steps 2-4 are only ever traversed in order.
+*/
 
 export class CheckoutPage extends BasePage {
     protected readonly path = '/checkout';
@@ -125,8 +125,7 @@ export class CheckoutPage extends BasePage {
     }
 
     // Step 2 for existing account
-    async singIn(user: { email:string; password:string }): Promise<void>
-    {
+    async singIn(user: { email: string; password: string }): Promise<void> {
         await this.email.fill(user.email)
         await this.password.fill(user.password)
         await this.loginSubmit.click()
@@ -153,7 +152,7 @@ export class CheckoutPage extends BasePage {
         await this.houseNumber.fill(address.houseNumber)
         await this.city.fill(address.city)
         await this.state.fill(address.state)
-        await this.country.fill(address.country)
+        await this.country.selectOption(address.country)
         await this.postalCode.fill(address.postalCode)
         await this.proceedToPayment.click()
     }

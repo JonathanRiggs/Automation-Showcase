@@ -7,7 +7,7 @@ const KNOWN_GOOD: readonly NewAddress[] = [
         house_number: '111',
         city: 'Nashville',
         state: 'Tennessee',
-        country: 'United States',
+        country: 'US',
         postal_code: '37216'
     },
     {
@@ -15,7 +15,7 @@ const KNOWN_GOOD: readonly NewAddress[] = [
         house_number: '222',
         city: 'Brentwood',
         state: 'California',
-        country: 'United States',
+        country: 'US',
         postal_code: '94105'
     },
     {
@@ -23,7 +23,7 @@ const KNOWN_GOOD: readonly NewAddress[] = [
         house_number: '333',
         city: 'Amsterdam',
         state: 'Noord-Holland',
-        country: 'Netherlands',
+        country: 'NL',
         postal_code: '1012JS'
     },
 ] as const;
